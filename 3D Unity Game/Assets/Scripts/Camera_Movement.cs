@@ -35,7 +35,7 @@ public class Camera_Movement : MonoBehaviour
         this.gameObject.transform.Rotate(Vector3.up * mouseX);
 
     }
-    // Update is called once per fra
+    // Update is called once per frame
     void FixedUpdate()
     {
         MoveX = Input.GetAxis("Horizontal");
