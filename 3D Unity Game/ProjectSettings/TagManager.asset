@@ -6,6 +6,14 @@ TagManager:
   tags:
   - Radius
   - Robot
+  - schutzstaffel_b
+  - schutzstaffel_a
+  - wehrmacht_c
+  - wehrmacht_b
+  - wehrmacht_a
+  - Hostage
+  - Hostage_Sitting
+  - Hostage_Walking
   layers:
   - Default
   - TransparentFX
