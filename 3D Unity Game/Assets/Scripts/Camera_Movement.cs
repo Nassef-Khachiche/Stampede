@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Camera_Movement : MonoBehaviour
 {
-    private float MoveX, MoveZ;
+    // Hostage
+    [SerializeField] public GameObject Hostage_Walking;
+    [SerializeField] public GameObject Hostage_Sitting;
+    NavMeshAgent nav;
+
+
     //sd is movement speed
+    private float MoveX, MoveZ;
     public float sd;
     public float JumpForce;
     public bool IsGrounded;
     public Rigidbody rb;
+
     //ms is mouse speed
     public int ms;
     public Transform cam;
     private float xRotation = 0f;
-    // Start is called before the first frame update
+
     void Start()
     {
+        Hostage_Walking.SetActive(false);
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -42,5 +51,14 @@ public class Camera_Movement : MonoBehaviour
         MoveZ = Input.GetAxis("Vertical");
 
         rb.MovePosition(transform.position + (transform.forward * MoveZ * sd / 2) + (transform.right * MoveX * sd / 2));
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Hostage_Sitting")
+        {
+            Hostage_Walking.SetActive(true);
+            Hostage_Sitting.SetActive(false);
+        }
     }
 }

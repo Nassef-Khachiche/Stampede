@@ -50,4 +50,24 @@ public class Target : MonoBehaviour
             robot.GetComponent<Animator>().Play("Z_FallingForward");
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player" && dead != true)
+        {
+            nav.SetDestination(target.position);
+            robot.GetComponent<Animator>().Play("Z_Attack");
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "Player" && dead != true)
+        {
+            nav.SetDestination(target.position);
+            robot.GetComponent<Animator>().Play("Z_Run");
+        }
+
+    }
+
 }
