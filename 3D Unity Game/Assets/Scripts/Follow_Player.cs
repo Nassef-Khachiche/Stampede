@@ -12,10 +12,8 @@ public class Follow_Player : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         nav.SetDestination(player.transform.position);
-        
     }
 }

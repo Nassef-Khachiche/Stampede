@@ -8,9 +8,8 @@ public class Gun : MonoBehaviour
     public Camera camera;
     NavMeshAgent nav;
 
-    void Update()
+    void FixedUpdate()
     {
-
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();

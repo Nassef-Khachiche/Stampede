@@ -8,6 +8,8 @@ public class Camera_Movement : MonoBehaviour
     // Hostage
     [SerializeField] public GameObject Hostage_Walking;
     [SerializeField] public GameObject Hostage_Sitting;
+    [SerializeField] public GameObject Jeep;
+    [SerializeField] public GameObject Army;
     NavMeshAgent nav;
 
 
@@ -26,6 +28,9 @@ public class Camera_Movement : MonoBehaviour
     void Start()
     {
         Hostage_Walking.SetActive(false);
+        Jeep.SetActive(false);
+        Army.SetActive(false);
+
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -59,6 +64,20 @@ public class Camera_Movement : MonoBehaviour
         {
             Hostage_Walking.SetActive(true);
             Hostage_Sitting.SetActive(false);
+
+            // Escape
+            Jeep.SetActive(true);
+            Army.SetActive(true);
+        }
+
+        if (collision.transform.tag == "Jeep" )
+        {
+            Debug.Log("YOU WIN");
+        }
+
+        if (collision.transform.tag == "Robot")
+        {
+            Debug.Log("YOU LOSE");
         }
     }
 }

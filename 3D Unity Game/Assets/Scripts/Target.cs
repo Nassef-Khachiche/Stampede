@@ -5,13 +5,20 @@ using UnityEngine.AI;
 
 public class Target : MonoBehaviour
 {
+    [SerializeField] public bool rush = false;
+
     public GameObject robot;
+    public GameObject player;
+    public GameObject hostage;
+
     bool dead = false;
     bool isHit = false;
+
     public float health = 40f;
     public ParticleSystem blood;
 
     // Follow player
+    public bool inRange;
     public Transform target;
     NavMeshAgent nav;
 
@@ -23,9 +30,16 @@ public class Target : MonoBehaviour
 
     private void Update()
     {
-        if (isHit == true)
+        if (rush == true)
+        {
+            isHit = true;
+        }
+
+
+        if (isHit == true && dead != true)
         {
             nav.SetDestination(target.position);
+            robot.GetComponent<Animator>().Play("Z_Run");
         }
         else
         {
@@ -51,23 +65,23 @@ public class Target : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag == "Player" && dead != true)
-        {
-            nav.SetDestination(target.position);
-            robot.GetComponent<Animator>().Play("Z_Attack");
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.transform.tag == "Player" && dead != true)
+    //    {
+    //        nav.SetDestination(target.position);
+    //        robot.GetComponent<Animator>().Play("Z_Attack");
+    //    }
+    //}
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.transform.tag == "Player" && dead != true)
-        {
-            nav.SetDestination(target.position);
-            robot.GetComponent<Animator>().Play("Z_Run");
-        }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.transform.tag == "Player" && dead != true)
+    //    {
+    //        nav.SetDestination(target.position);
+    //        robot.GetComponent<Animator>().Play("Z_Run");
+    //    }
 
-    }
+    //}
 
 }
