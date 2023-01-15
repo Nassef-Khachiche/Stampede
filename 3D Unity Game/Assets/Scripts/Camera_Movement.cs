@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Camera_Movement : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Camera_Movement : MonoBehaviour
     [SerializeField] public GameObject Army;
     NavMeshAgent nav;
 
+    public AudioClip clip;
+    public AudioSource source;
 
     //sd is movement speed
     private float MoveX, MoveZ;
@@ -38,14 +41,16 @@ public class Camera_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Walk
         float mouseX = Input.GetAxis("Mouse X") * ms * 10 * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * ms * 10 * Time.deltaTime;
 
+        // Rotate the player relevant to the mouse rotational Y
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -25f, 25f);
 
+        // Look Up or Down (Camera)
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        
         this.gameObject.transform.Rotate(Vector3.up * mouseX);
 
     }
@@ -62,6 +67,8 @@ public class Camera_Movement : MonoBehaviour
     {
         if (collision.transform.tag == "Hostage_Sitting")
         {
+            source.Play();
+
             Hostage_Walking.SetActive(true);
             Hostage_Sitting.SetActive(false);
 
@@ -72,12 +79,8 @@ public class Camera_Movement : MonoBehaviour
 
         if (collision.transform.tag == "Jeep" )
         {
-            Debug.Log("YOU WIN");
-        }
-
-        if (collision.transform.tag == "Robot")
-        {
-            Debug.Log("YOU LOSE");
+            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
         }
     }
 }

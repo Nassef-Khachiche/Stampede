@@ -3,6 +3,10 @@ using UnityEngine.AI;
 
 public class Gun : MonoBehaviour
 {
+    public AudioClip clip;
+    public AudioSource source;
+
+    public GameObject explosion;
     public float damage = 10f;
     public float range = 100f;
     public Camera camera;
@@ -30,7 +34,15 @@ public class Gun : MonoBehaviour
             {
                 target.TakeDamage(damage);
             }
+
+            Instantiate(explosion, hit.point, Quaternion.LookRotation(hit.normal));
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                source.Play();
+            }
         }
+
         
     }
 }

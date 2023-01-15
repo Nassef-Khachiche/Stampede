@@ -15,6 +15,7 @@ TagManager:
   - Hostage_Sitting
   - Hostage_Walking
   - Army
+  - Jeep
   layers:
   - Default
   - TransparentFX

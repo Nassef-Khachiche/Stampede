@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+
 
 public class Target : MonoBehaviour
 {
     [SerializeField] public bool rush = false;
+
+    public AudioClip clip;
+    public AudioSource source;
 
     public GameObject robot;
     public GameObject player;
@@ -65,23 +70,12 @@ public class Target : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.transform.tag == "Player" && dead != true)
-    //    {
-    //        nav.SetDestination(target.position);
-    //        robot.GetComponent<Animator>().Play("Z_Attack");
-    //    }
-    //}
-
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.transform.tag == "Player" && dead != true)
-    //    {
-    //        nav.SetDestination(target.position);
-    //        robot.GetComponent<Animator>().Play("Z_Run");
-    //    }
-
-    //}
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player" && dead != true)
+        {
+            source.Play();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
 }
